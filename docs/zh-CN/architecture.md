@@ -21,13 +21,13 @@
 
 ### 1.1 项目信息
 
-| 项目 | 值 |
-|------|-----|
-| 项目名称 | Backstage Demo |
-| 版本 | 1.47.0 |
-| 架构模式 | Monorepo (Yarn Workspaces) |
-| 包管理器 | Yarn 4.4.1 |
-| Node.js 版本 | 22 或 24 |
+| 项目         | 值                         |
+| ------------ | -------------------------- |
+| 项目名称     | Backstage Demo             |
+| 版本         | 1.47.0                     |
+| 架构模式     | Monorepo (Yarn Workspaces) |
+| 包管理器     | Yarn 4.4.1                 |
+| Node.js 版本 | 22 或 24                   |
 
 ### 1.2 核心组件
 
@@ -874,9 +874,9 @@ erDiagram
 
 ### 7.2 数据库配置
 
-| 环境 | 客户端 | 连接方式 | Schema 模式 |
-|------|--------|----------|-------------|
-| 开发 | better-sqlite3 | :memory: | 单文件 |
+| 环境 | 客户端          | 连接方式       | Schema 模式                |
+| ---- | --------------- | -------------- | -------------------------- |
+| 开发 | better-sqlite3  | :memory:       | 单文件                     |
 | 生产 | pg (PostgreSQL) | localhost:5432 | pluginDivisionMode: schema |
 
 ```yaml
@@ -884,7 +884,7 @@ erDiagram
 backend:
   database:
     client: pg
-    pluginDivisionMode: schema  # 每个插件使用独立 schema
+    pluginDivisionMode: schema # 每个插件使用独立 schema
     connection:
       host: localhost
       port: 5432
@@ -971,7 +971,7 @@ flowchart TB
 ```yaml
 # app-config.yaml
 permission:
-  enabled: true  # 权限系统已启用
+  enabled: true # 权限系统已启用
 ```
 
 当前使用的策略: `AllowAllPolicy` (允许所有操作，适用于开发环境)
@@ -1084,38 +1084,38 @@ CMD ["node", "dist/index.cjs.js"]
 
 ### 10.1 前端技术栈
 
-| 类别 | 技术 | 版本 | 用途 |
-|------|------|------|------|
-| 框架 | React | ^18.0.2 | UI 框架 |
-| 路由 | React Router | ^6.3.0 | 路由管理 |
-| UI 库 | Material-UI | ^4.12.2 | 组件库 |
-| 语言 | TypeScript | ~5.8.0 | 类型安全 |
-| 构建工具 | Backstage CLI | ^0.35.2 | 打包构建 |
-| 测试 | Jest | ^30.2.0 | 单元测试 |
-| E2E 测试 | Playwright | ^1.32.3 | 端到端测试 |
+| 类别     | 技术          | 版本    | 用途       |
+| -------- | ------------- | ------- | ---------- |
+| 框架     | React         | ^18.0.2 | UI 框架    |
+| 路由     | React Router  | ^6.3.0  | 路由管理   |
+| UI 库    | Material-UI   | ^4.12.2 | 组件库     |
+| 语言     | TypeScript    | ~5.8.0  | 类型安全   |
+| 构建工具 | Backstage CLI | ^0.35.2 | 打包构建   |
+| 测试     | Jest          | ^30.2.0 | 单元测试   |
+| E2E 测试 | Playwright    | ^1.32.3 | 端到端测试 |
 
 ### 10.2 后端技术栈
 
-| 类别 | 技术 | 版本 | 用途 |
-|------|------|------|------|
-| 运行时 | Node.js | 22/24 | JavaScript 运行环境 |
-| 框架 | Express | (via backend-defaults) | HTTP 服务 |
-| 语言 | TypeScript | ~5.8.0 | 类型安全 |
-| 数据库 | PostgreSQL | - | 主数据库 |
-| 数据库客户端 | pg | ^8.11.3 | PostgreSQL 客户端 |
-| SQLite | better-sqlite3 | ^12.0.0 | 开发数据库 |
+| 类别         | 技术           | 版本                   | 用途                |
+| ------------ | -------------- | ---------------------- | ------------------- |
+| 运行时       | Node.js        | 22/24                  | JavaScript 运行环境 |
+| 框架         | Express        | (via backend-defaults) | HTTP 服务           |
+| 语言         | TypeScript     | ~5.8.0                 | 类型安全            |
+| 数据库       | PostgreSQL     | -                      | 主数据库            |
+| 数据库客户端 | pg             | ^8.11.3                | PostgreSQL 客户端   |
+| SQLite       | better-sqlite3 | ^12.0.0                | 开发数据库          |
 
 ### 10.3 Backstage 核心包版本
 
-| 包名 | 版本 | 角色 |
-|------|------|------|
-| @backstage/app-defaults | ^1.7.4 | 前端 |
-| @backstage/core-app-api | ^1.19.3 | 前端 |
-| @backstage/core-components | ^0.18.5 | 前端 |
-| @backstage/core-plugin-api | ^1.12.1 | 前端 |
+| 包名                        | 版本    | 角色 |
+| --------------------------- | ------- | ---- |
+| @backstage/app-defaults     | ^1.7.4  | 前端 |
+| @backstage/core-app-api     | ^1.19.3 | 前端 |
+| @backstage/core-components  | ^0.18.5 | 前端 |
+| @backstage/core-plugin-api  | ^1.12.1 | 前端 |
 | @backstage/backend-defaults | ^0.15.0 | 后端 |
-| @backstage/cli | ^0.35.2 | 工具 |
-| @backstage/catalog-model | ^1.7.6 | 共享 |
+| @backstage/cli              | ^0.35.2 | 工具 |
+| @backstage/catalog-model    | ^1.7.6  | 共享 |
 
 ### 10.4 项目目录结构
 
@@ -1165,34 +1165,34 @@ backstage-demo/
 
 ### A. 常用命令
 
-| 命令 | 描述 |
-|------|------|
-| `yarn start` | 启动开发服务器 |
-| `yarn build:all` | 构建所有包 |
-| `yarn build:backend` | 仅构建后端 |
-| `yarn build-image` | 构建 Docker 镜像 |
-| `yarn test` | 运行单元测试 |
-| `yarn test:e2e` | 运行 E2E 测试 |
-| `yarn lint` | 代码检查 |
-| `yarn tsc` | TypeScript 类型检查 |
-| `yarn new` | 创建新插件/组件 |
+| 命令                 | 描述                |
+| -------------------- | ------------------- |
+| `yarn start`         | 启动开发服务器      |
+| `yarn build:all`     | 构建所有包          |
+| `yarn build:backend` | 仅构建后端          |
+| `yarn build-image`   | 构建 Docker 镜像    |
+| `yarn test`          | 运行单元测试        |
+| `yarn test:e2e`      | 运行 E2E 测试       |
+| `yarn lint`          | 代码检查            |
+| `yarn tsc`           | TypeScript 类型检查 |
+| `yarn new`           | 创建新插件/组件     |
 
 ### B. 端口配置
 
-| 服务 | 端口 | 说明 |
-|------|------|------|
-| 前端 | 3000 | React 开发服务器 |
-| 后端 | 7007 | Node.js API 服务 |
-| PostgreSQL | 5432 | 数据库服务 |
+| 服务       | 端口 | 说明             |
+| ---------- | ---- | ---------------- |
+| 前端       | 3000 | React 开发服务器 |
+| 后端       | 7007 | Node.js API 服务 |
+| PostgreSQL | 5432 | 数据库服务       |
 
 ### C. 环境变量
 
-| 变量 | 必需 | 说明 |
-|------|------|------|
-| `GITHUB_TOKEN` | 是 | GitHub 集成令牌 |
-| `BACKEND_SECRET` | 生产 | 后端认证密钥 |
+| 变量             | 必需 | 说明            |
+| ---------------- | ---- | --------------- |
+| `GITHUB_TOKEN`   | 是   | GitHub 集成令牌 |
+| `BACKEND_SECRET` | 生产 | 后端认证密钥    |
 
 ---
 
-*文档生成时间: 2026-03-02*
-*Backstage 版本: 1.47.0*
+_文档生成时间: 2026-03-02_
+_Backstage 版本: 1.47.0_

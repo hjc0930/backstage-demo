@@ -21,13 +21,13 @@
 
 ### 1.1 Project Information
 
-| Item | Value |
-|------|-------|
-| Project Name | Backstage Demo |
-| Version | 1.47.0 |
+| Item                 | Value                      |
+| -------------------- | -------------------------- |
+| Project Name         | Backstage Demo             |
+| Version              | 1.47.0                     |
 | Architecture Pattern | Monorepo (Yarn Workspaces) |
-| Package Manager | Yarn 4.4.1 |
-| Node.js Version | 22 or 24 |
+| Package Manager      | Yarn 4.4.1                 |
+| Node.js Version      | 22 or 24                   |
 
 ### 1.2 Core Components
 
@@ -874,17 +874,17 @@ erDiagram
 
 ### 7.2 Database Configuration
 
-| Environment | Client | Connection | Schema Mode |
-|-------------|--------|------------|-------------|
-| Development | better-sqlite3 | :memory: | Single File |
-| Production | pg (PostgreSQL) | localhost:5432 | pluginDivisionMode: schema |
+| Environment | Client          | Connection     | Schema Mode                |
+| ----------- | --------------- | -------------- | -------------------------- |
+| Development | better-sqlite3  | :memory:       | Single File                |
+| Production  | pg (PostgreSQL) | localhost:5432 | pluginDivisionMode: schema |
 
 ```yaml
 # Database Configuration (app-config.yaml)
 backend:
   database:
     client: pg
-    pluginDivisionMode: schema  # Each plugin uses separate schema
+    pluginDivisionMode: schema # Each plugin uses separate schema
     connection:
       host: localhost
       port: 5432
@@ -971,7 +971,7 @@ flowchart TB
 ```yaml
 # app-config.yaml
 permission:
-  enabled: true  # Permission system is enabled
+  enabled: true # Permission system is enabled
 ```
 
 Current Policy: `AllowAllPolicy` (Allows all operations, suitable for development environment)
@@ -1084,38 +1084,38 @@ CMD ["node", "dist/index.cjs.js"]
 
 ### 10.1 Frontend Technology Stack
 
-| Category | Technology | Version | Purpose |
-|----------|------------|---------|---------|
-| Framework | React | ^18.0.2 | UI Framework |
-| Router | React Router | ^6.3.0 | Route Management |
-| UI Library | Material-UI | ^4.12.2 | Component Library |
-| Language | TypeScript | ~5.8.0 | Type Safety |
-| Build Tool | Backstage CLI | ^0.35.2 | Bundling |
-| Testing | Jest | ^30.2.0 | Unit Testing |
-| E2E Testing | Playwright | ^1.32.3 | End-to-End Testing |
+| Category    | Technology    | Version | Purpose            |
+| ----------- | ------------- | ------- | ------------------ |
+| Framework   | React         | ^18.0.2 | UI Framework       |
+| Router      | React Router  | ^6.3.0  | Route Management   |
+| UI Library  | Material-UI   | ^4.12.2 | Component Library  |
+| Language    | TypeScript    | ~5.8.0  | Type Safety        |
+| Build Tool  | Backstage CLI | ^0.35.2 | Bundling           |
+| Testing     | Jest          | ^30.2.0 | Unit Testing       |
+| E2E Testing | Playwright    | ^1.32.3 | End-to-End Testing |
 
 ### 10.2 Backend Technology Stack
 
-| Category | Technology | Version | Purpose |
-|----------|------------|---------|---------|
-| Runtime | Node.js | 22/24 | JavaScript Runtime |
-| Framework | Express | (via backend-defaults) | HTTP Service |
-| Language | TypeScript | ~5.8.0 | Type Safety |
-| Database | PostgreSQL | - | Primary Database |
-| DB Client | pg | ^8.11.3 | PostgreSQL Client |
-| SQLite | better-sqlite3 | ^12.0.0 | Dev Database |
+| Category  | Technology     | Version                | Purpose            |
+| --------- | -------------- | ---------------------- | ------------------ |
+| Runtime   | Node.js        | 22/24                  | JavaScript Runtime |
+| Framework | Express        | (via backend-defaults) | HTTP Service       |
+| Language  | TypeScript     | ~5.8.0                 | Type Safety        |
+| Database  | PostgreSQL     | -                      | Primary Database   |
+| DB Client | pg             | ^8.11.3                | PostgreSQL Client  |
+| SQLite    | better-sqlite3 | ^12.0.0                | Dev Database       |
 
 ### 10.3 Backstage Core Package Versions
 
-| Package | Version | Role |
-|---------|---------|------|
-| @backstage/app-defaults | ^1.7.4 | Frontend |
-| @backstage/core-app-api | ^1.19.3 | Frontend |
-| @backstage/core-components | ^0.18.5 | Frontend |
-| @backstage/core-plugin-api | ^1.12.1 | Frontend |
-| @backstage/backend-defaults | ^0.15.0 | Backend |
-| @backstage/cli | ^0.35.2 | Tooling |
-| @backstage/catalog-model | ^1.7.6 | Shared |
+| Package                     | Version | Role     |
+| --------------------------- | ------- | -------- |
+| @backstage/app-defaults     | ^1.7.4  | Frontend |
+| @backstage/core-app-api     | ^1.19.3 | Frontend |
+| @backstage/core-components  | ^0.18.5 | Frontend |
+| @backstage/core-plugin-api  | ^1.12.1 | Frontend |
+| @backstage/backend-defaults | ^0.15.0 | Backend  |
+| @backstage/cli              | ^0.35.2 | Tooling  |
+| @backstage/catalog-model    | ^1.7.6  | Shared   |
 
 ### 10.4 Project Directory Structure
 
@@ -1150,16 +1150,11 @@ backstage-demo/
 ├── plugins/                     # Custom plugins directory
 │
 ├── examples/                    # Sample data
-│   ├── entities.yaml            # Sample entities
-│   ├── org.yaml                 # Organization structure
-│   └── template/                # Software templates
-│       └── template.yaml
-│
-└── docs/                        # Documentation directory
-    ├── zh-CN/                   # Chinese docs
-    │   └── architecture.md
-    └── en/                      # English docs
-        └── architecture.md
+    ├── entities.yaml            # Sample entities
+    ├── org.yaml                 # Organization structure
+    └── template/                # Software templates
+        └── template.yaml
+
 ```
 
 ---
@@ -1168,34 +1163,29 @@ backstage-demo/
 
 ### A. Common Commands
 
-| Command | Description |
-|---------|-------------|
-| `yarn start` | Start development server |
-| `yarn build:all` | Build all packages |
-| `yarn build:backend` | Build backend only |
-| `yarn build-image` | Build Docker image |
-| `yarn test` | Run unit tests |
-| `yarn test:e2e` | Run E2E tests |
-| `yarn lint` | Code linting |
-| `yarn tsc` | TypeScript type check |
-| `yarn new` | Create new plugin/component |
+| Command              | Description                 |
+| -------------------- | --------------------------- |
+| `yarn start`         | Start development server    |
+| `yarn build:all`     | Build all packages          |
+| `yarn build:backend` | Build backend only          |
+| `yarn build-image`   | Build Docker image          |
+| `yarn test`          | Run unit tests              |
+| `yarn test:e2e`      | Run E2E tests               |
+| `yarn lint`          | Code linting                |
+| `yarn tsc`           | TypeScript type check       |
+| `yarn new`           | Create new plugin/component |
 
 ### B. Port Configuration
 
-| Service | Port | Description |
-|---------|------|-------------|
-| Frontend | 3000 | React dev server |
-| Backend | 7007 | Node.js API service |
-| PostgreSQL | 5432 | Database service |
+| Service    | Port | Description         |
+| ---------- | ---- | ------------------- |
+| Frontend   | 3000 | React dev server    |
+| Backend    | 7007 | Node.js API service |
+| PostgreSQL | 5432 | Database service    |
 
 ### C. Environment Variables
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `GITHUB_TOKEN` | Yes | GitHub integration token |
-| `BACKEND_SECRET` | Production | Backend auth secret |
-
----
-
-*Document Generated: 2026-03-02*
-*Backstage Version: 1.47.0*
+| Variable         | Required   | Description              |
+| ---------------- | ---------- | ------------------------ |
+| `GITHUB_TOKEN`   | Yes        | GitHub integration token |
+| `BACKEND_SECRET` | Production | Backend auth secret      |
