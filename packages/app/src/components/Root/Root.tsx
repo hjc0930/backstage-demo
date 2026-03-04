@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import { makeStyles, Box } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import ExtensionIcon from '@material-ui/icons/Extension';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
@@ -28,7 +28,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import { MyGroupsSidebarItem } from '@backstage/plugin-org';
 import GroupIcon from '@material-ui/icons/People';
 import { NotificationsSidebarItem } from '@backstage/plugin-notifications';
-import { ThemeToggle } from './ThemeToggle';
 
 const useSidebarLogoStyles = makeStyles({
   root: {
@@ -45,21 +44,6 @@ const useSidebarLogoStyles = makeStyles({
   },
 });
 
-const useHeaderStyles = makeStyles(theme => ({
-  header: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: theme.spacing(1, 2),
-    backgroundColor: theme.palette.background.paper,
-    borderBottom: `1px solid ${theme.palette.divider}`,
-    minHeight: 48,
-    position: 'sticky',
-    top: 0,
-    zIndex: 100,
-  },
-}));
-
 const SidebarLogo = () => {
   const classes = useSidebarLogoStyles();
   const { isOpen } = useSidebarOpenState();
@@ -73,15 +57,7 @@ const SidebarLogo = () => {
   );
 };
 
-// const SidebarPin = () => {
-//   const { isOpen, setOpen } = useSidebarOpenState();
-
-//   return
-// }
-
 export const Layout = ({ children }: PropsWithChildren<{}>) => {
-  const headerClasses = useHeaderStyles();
-
   return (
     <SidebarPage>
       <Sidebar>
@@ -119,16 +95,7 @@ export const Layout = ({ children }: PropsWithChildren<{}>) => {
           <SidebarSettings />
         </SidebarGroup>
       </Sidebar>
-      <Box flex={1} display="flex" flexDirection="column" overflow="hidden">
-        {/* 全局头部栏 */}
-        <Box className={headerClasses.header}>
-          <ThemeToggle />
-        </Box>
-        {/* 页面内容 */}
-        <Box flex={1} overflow="auto">
-          {children}
-        </Box>
-      </Box>
+      {children}
     </SidebarPage>
   );
 };

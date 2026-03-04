@@ -1,3 +1,4 @@
+import { BackstageOverrides } from '@backstage/core-components';
 import {
   createBaseThemeOptions,
   pageTheme as defaultPageThemes,
@@ -6,7 +7,7 @@ import {
   createUnifiedTheme,
 } from '@backstage/theme';
 
-import { alpha } from '@material-ui/core/styles';
+import { alpha, Theme } from '@material-ui/core/styles';
 
 const pageThemesFontColorOverride: Record<string, PageTheme> = {};
 Object.keys(defaultPageThemes).map(key => {
@@ -15,6 +16,7 @@ Object.keys(defaultPageThemes).map(key => {
     fontColor: '#172B4D',
   };
 });
+
 
 export const apertureTheme = createUnifiedTheme({
   ...createBaseThemeOptions({
@@ -64,11 +66,15 @@ export const apertureTheme = createUnifiedTheme({
       },
       navigation: {
         ...palettes.light.navigation,
-        background: '#172B4D',
-        color: '#FFFFFF',
-        indicator: '#2684FF',
+        background: '#FFFFFF',
+        color: '#172B4D',
+        indicator: '#0052CC',
+        selectedColor: '#0052CC',
         navItem: {
-          hoverBackground: 'rgba(116,118,121,0.6)',
+          hoverBackground: 'rgba(0, 82, 204, 0.08)',
+        },
+        submenu: {
+          background: '#FAFBFC',
         },
       },
       text: {
@@ -147,7 +153,7 @@ export const apertureTheme = createUnifiedTheme({
       styleOverrides: {
         icon: {
           '& path': {
-            fill: '#FFFFFF',
+            fill: '#5E6C84',
           },
         },
       },
@@ -165,6 +171,16 @@ export const apertureTheme = createUnifiedTheme({
           },
         },
       },
+    },
+
+    BackstageSidebar: {
+      styleOverrides: {
+        drawer: {
+          '&>hr': {
+            backgroundColor: "#c6c2c2"
+          }
+        }
+      }
     },
     CatalogReactUserListPicker: {
       styleOverrides: {
@@ -212,11 +228,11 @@ export const apertureTheme = createUnifiedTheme({
       styleOverrides: {
         root: {
           '&[aria-expanded=true]': {
-            backgroundColor: '#26385A',
-            color: '#FFFFFF',
+            backgroundColor: '#F4F5F7',
+            color: '#172B4D',
           },
           '&[aria-expanded=true] path': {
-            fill: '#FFFFFF',
+            fill: '#5E6C84',
           },
         },
       },
@@ -253,9 +269,12 @@ export const apertureTheme = createUnifiedTheme({
       styleOverrides: {
         select: {
           '&[aria-expanded]': {
-            backgroundColor: '#26385A',
-            color: '#FFFFFF',
+            backgroundColor: '#F4F5F7',
+            color: '#172B4D',
           },
+        },
+        icon: {
+          color: '#5E6C84',
         },
       },
     },
@@ -284,6 +303,13 @@ export const apertureTheme = createUnifiedTheme({
         },
       },
     },
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#FAFAFA',
+        },
+      },
+    },
     MuiTypography: {
       styleOverrides: {
         button: {
@@ -293,3 +319,4 @@ export const apertureTheme = createUnifiedTheme({
     },
   },
 });
+
