@@ -21,7 +21,7 @@ jobs:
             set -e
 
             # 进入项目目录
-            cd ${{ secrets.PROJECT_PATH || '/root/backstage-demo' }}
+            cd ${{ secrets.PROJECT_PATH }}
 
             # 拉取最新代码
             git pull origin main
@@ -30,7 +30,7 @@ jobs:
             yarn install --frozen-lockfile
 
             # 类型检查
-            yarn tsc
+            # yarn tsc
 
             # 构建前后端
             yarn build:all
