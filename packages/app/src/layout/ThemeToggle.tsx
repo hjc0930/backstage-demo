@@ -4,7 +4,7 @@ import Brightness7Icon from '@material-ui/icons/Brightness7';
 import { useApi } from '@backstage/core-plugin-api';
 import { appThemeApiRef } from '@backstage/core-plugin-api';
 import { useState } from 'react';
-import { ThemeEnum } from '../../types/common';
+import { ThemeEnum } from '../types/common';
 
 export const ThemeToggle = () => {
   const theme = useTheme();

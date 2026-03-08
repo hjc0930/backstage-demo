@@ -1,4 +1,4 @@
-import { apiDocsPlugin, ApiExplorerPage } from '@backstage/plugin-api-docs';
+import { apiDocsPlugin } from '@backstage/plugin-api-docs';
 import {
   CatalogEntityPage,
   CatalogIndexPage,
@@ -20,10 +20,10 @@ import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import { UserSettingsPage } from '@backstage/plugin-user-settings';
 import { UnifiedThemeProvider } from '@backstage/theme';
-import { Navigate, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { apis } from './apis';
 import { entityPage } from './components/catalog/EntityPage';
-import { Layout } from './components/Root';
+import Layout from './layout';
 import { searchPage } from './components/search/SearchPage';
 
 import { createApp } from '@backstage/app-defaults';
@@ -40,6 +40,8 @@ import { RequirePermission } from '@backstage/plugin-permission-react';
 import { SignalsDisplay } from '@backstage/plugin-signals';
 import { apertureTheme } from './theme/my-theme';
 import { apertureThemeDark } from './theme/my-theme-dark';
+import { CustomDashboard } from './views/Dashboard';
+import { CustomApiDocs } from './views/ApiDocs';
 
 const app = createApp({
   apis,
@@ -89,7 +91,7 @@ const app = createApp({
 
 const routes = (
   <FlatRoutes>
-    <Route path="/" element={<Navigate to="catalog" />} />
+    <Route path="/" element={<CustomDashboard />} />
     <Route path="/catalog" element={<CatalogIndexPage />} />
     <Route
       path="/catalog/:namespace/:kind/:name"
@@ -107,7 +109,7 @@ const routes = (
       </TechDocsAddons>
     </Route>
     <Route path="/create" element={<ScaffolderPage />} />
-    <Route path="/api-docs" element={<ApiExplorerPage />} />
+    <Route path="/api-docs" element={<CustomApiDocs />} />
     <Route
       path="/catalog-import"
       element={

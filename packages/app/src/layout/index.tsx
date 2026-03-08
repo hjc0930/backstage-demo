@@ -28,6 +28,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import { MyGroupsSidebarItem } from '@backstage/plugin-org';
 import GroupIcon from '@material-ui/icons/People';
 import { NotificationsSidebarItem } from '@backstage/plugin-notifications';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import { ThemeToggle } from './ThemeToggle';
 
 const useSidebarLogoStyles = makeStyles({
   root: {
@@ -44,6 +46,18 @@ const useSidebarLogoStyles = makeStyles({
   },
 });
 
+const useThemeToggleStyles = makeStyles(theme => ({
+  root: {
+    position: 'fixed',
+    top: theme.spacing(1),
+    right: theme.spacing(1),
+    zIndex: 1100,
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: '50%',
+    boxShadow: theme.shadows[2],
+  },
+}));
+
 const SidebarLogo = () => {
   const classes = useSidebarLogoStyles();
   const { isOpen } = useSidebarOpenState();
@@ -57,9 +71,14 @@ const SidebarLogo = () => {
   );
 };
 
-export const Layout = ({ children }: PropsWithChildren<{}>) => {
+const Layout = ({ children }: PropsWithChildren<{}>) => {
+  const themeToggleClasses = useThemeToggleStyles();
+
   return (
     <SidebarPage>
+      <div className={themeToggleClasses.root}>
+        <ThemeToggle />
+      </div>
       <Sidebar>
         <SidebarLogo />
         <SidebarGroup label="Search" icon={<SearchIcon />} to="/search">
@@ -68,7 +87,8 @@ export const Layout = ({ children }: PropsWithChildren<{}>) => {
         <SidebarDivider />
         <SidebarGroup label="Menu" icon={<MenuIcon />}>
           {/* Global nav, not org-specific */}
-          <SidebarItem icon={HomeIcon} to="catalog" text="Home" />
+          <SidebarItem icon={DashboardIcon} to="/" text="首页" />
+          <SidebarItem icon={HomeIcon} to="catalog" text="目录" />
           <MyGroupsSidebarItem
             singularTitle="My Group"
             pluralTitle="My Groups"
@@ -99,3 +119,5 @@ export const Layout = ({ children }: PropsWithChildren<{}>) => {
     </SidebarPage>
   );
 };
+
+export default Layout;
