@@ -42,6 +42,13 @@ import { apertureTheme } from './theme/my-theme';
 import { apertureThemeDark } from './theme/my-theme-dark';
 import { CustomDashboard } from './views/Dashboard';
 import { CustomApiDocs } from './views/ApiDocs';
+import { ApiCatalog } from './views/ApiCatalog';
+import { PublishApi } from './views/PublishApi';
+import { AppTemplates } from './views/AppTemplates';
+import { DevAgents } from './views/DevAgents';
+import { Observability } from './views/Observability';
+import { Reference } from './views/Reference';
+import { Standards } from './views/Standards';
 
 const app = createApp({
   apis,
@@ -124,6 +131,14 @@ const routes = (
     <Route path="/settings" element={<UserSettingsPage />} />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
     <Route path="/notifications" element={<NotificationsPage />} />
+    <Route path="/api-catalog" element={<ApiCatalog />} />
+    <Route path="/publish-api" element={<PublishApi />} />
+    <Route path="/app-catalog" element={<CatalogIndexPage />} />
+    <Route path="/app-templates" element={<AppTemplates />} />
+    <Route path="/dev-agents" element={<DevAgents />} />
+    <Route path="/observability" element={<Observability />} />
+    <Route path="/reference" element={<Reference />} />
+    <Route path="/standards" element={<Standards />} />
   </FlatRoutes>
 );
 

@@ -3,7 +3,10 @@
     "allow": [
       "Bash(yarn install:*)",
       "Bash(yarn tsc:*)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(ls:*)",
+      "Bash(xargs:*)",
+      "Bash(dir:*)"
     ]
   }
 }

@@ -1,9 +1,16 @@
 import { PropsWithChildren } from 'react';
 import { makeStyles } from '@material-ui/core';
-import HomeIcon from '@material-ui/icons/Home';
-import ExtensionIcon from '@material-ui/icons/Extension';
-import LibraryBooks from '@material-ui/icons/LibraryBooks';
-import CreateComponentIcon from '@material-ui/icons/AddCircleOutline';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import AppsIcon from '@material-ui/icons/Apps';
+import DescriptionIcon from '@material-ui/icons/Description';
+import AndroidIcon from '@material-ui/icons/Android';
+import ShowChartIcon from '@material-ui/icons/ShowChart';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import GavelIcon from '@material-ui/icons/Gavel';
+import BuildIcon from '@material-ui/icons/Build';
+import FolderIcon from '@material-ui/icons/Folder';
 import LogoFull from './LogoFull';
 import LogoIcon from './LogoIcon';
 import {
@@ -18,17 +25,12 @@ import {
   SidebarGroup,
   SidebarItem,
   SidebarPage,
-  SidebarScrollWrapper,
   SidebarSpace,
   useSidebarOpenState,
   Link,
 } from '@backstage/core-components';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import { MyGroupsSidebarItem } from '@backstage/plugin-org';
-import GroupIcon from '@material-ui/icons/People';
 import { NotificationsSidebarItem } from '@backstage/plugin-notifications';
-import DashboardIcon from '@material-ui/icons/Dashboard';
 import { ThemeToggle } from './ThemeToggle';
 
 const useSidebarLogoStyles = makeStyles({
@@ -85,24 +87,36 @@ const Layout = ({ children }: PropsWithChildren<{}>) => {
           <SidebarSearchModal />
         </SidebarGroup>
         <SidebarDivider />
-        <SidebarGroup label="Menu" icon={<MenuIcon />}>
-          {/* Global nav, not org-specific */}
-          <SidebarItem icon={DashboardIcon} to="/" text="首页" />
-          <SidebarItem icon={HomeIcon} to="catalog" text="目录" />
-          <MyGroupsSidebarItem
-            singularTitle="My Group"
-            pluralTitle="My Groups"
-            icon={GroupIcon}
-          />
-          <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" />
-          <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
-          <SidebarItem icon={CreateComponentIcon} to="create" text="Create" />
-          {/* End global nav */}
-          <SidebarDivider />
-          <SidebarScrollWrapper>
-            {/* Items in this group will be scrollable if they run out of space */}
-          </SidebarScrollWrapper>
+
+        {/* Dashboard */}
+        <SidebarItem icon={DashboardIcon} to="/" text="Dashboard" />
+
+        <SidebarDivider />
+
+        {/* APIs Group */}
+        <SidebarGroup label="APIs" icon={<SettingsEthernetIcon />}>
+          <SidebarItem icon={SettingsEthernetIcon} to="api-catalog" text="API Catalog" />
+          <SidebarItem icon={CloudUploadIcon} to="publish-api" text="Publish API" />
         </SidebarGroup>
+
+        <SidebarDivider />
+
+        {/* Tools Group */}
+        <SidebarGroup label="Tools" icon={<BuildIcon />}>
+          <SidebarItem icon={AppsIcon} to="app-catalog" text="App Catalog" />
+          <SidebarItem icon={DescriptionIcon} to="app-templates" text="App Templates" />
+          <SidebarItem icon={AndroidIcon} to="dev-agents" text="Dev Agents" />
+          <SidebarItem icon={ShowChartIcon} to="observability" text="Observability" />
+        </SidebarGroup>
+
+        <SidebarDivider />
+
+        {/* Resources Group */}
+        <SidebarGroup label="Resources" icon={<FolderIcon />}>
+          <SidebarItem icon={MenuBookIcon} to="reference" text="Reference" />
+          <SidebarItem icon={GavelIcon} to="standards" text="Standards" />
+        </SidebarGroup>
+
         <SidebarSpace />
         <SidebarDivider />
         <NotificationsSidebarItem />
