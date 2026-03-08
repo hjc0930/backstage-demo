@@ -1,6 +1,6 @@
 app:
   title: Scaffolded Backstage App
-  baseUrl: http://localhost:3000
+  baseUrl: ${APP_BASE_URL:-http://localhost:3000}
 
 organization:
   name: My Company
