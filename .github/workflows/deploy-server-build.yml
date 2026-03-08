@@ -21,21 +21,25 @@ jobs:
             set -e
 
             # 进入项目目录
-            cd ${{ secrets.PROJECT_PATH || '/opt/backstage-demo' }}
+            cd ${{ secrets.PROJECT_PATH || '/root/backstage-demo' }}
 
             # 拉取最新代码
             git pull origin main
 
-            # 安装依赖并构建
+            # 安装依赖
             yarn install --frozen-lockfile
+
+            # 类型检查
             yarn tsc
+
+            # 构建前后端
             yarn build:all
 
             # 构建 Docker 镜像
             yarn build-image
 
-            # 重启服务
-            docker-compose down || true
+            # 停止并重启服务
+            docker-compose down
             docker-compose up -d
 
             # 清理旧镜像
@@ -47,4 +51,4 @@ jobs:
       - name: Health Check
         run: |
           sleep 30
-          curl -f ${{ secrets.APP_BASE_URL }}/healthcheck || exit 1
+          curl -f ${{ secrets.APP_BASE_URL }} || exit 1
