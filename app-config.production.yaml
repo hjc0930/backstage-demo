@@ -15,6 +15,19 @@ backend:
   # all interfaces, the most permissive setting. The right value depends on your specific deployment.
   listen: ':7007'
 
+  # 服务间认证密钥 - 生产环境必须配置
+  # 建议使用环境变量: ${BACKEND_AUTH_SECRET}
+  # 生成方式: node -e "console.log(require('crypto').randomBytes(24).toString('hex'))"
+  auth:
+    keys:
+      - secret: ${BACKEND_AUTH_SECRET:-change-this-to-a-secure-random-secret}
+
+  # CORS 配置
+  cors:
+    origin: ${APP_BASE_URL:-http://localhost:7007}
+    methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
+    credentials: true
+
   # 使用 SQLite 文件模式进行数据持久化
   database:
     client: better-sqlite3
