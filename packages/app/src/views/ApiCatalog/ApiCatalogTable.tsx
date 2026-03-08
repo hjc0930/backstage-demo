@@ -195,7 +195,7 @@ export const ApiCatalogTable: React.FC = () => {
   });
 
   const tableData: ApiRowData[] = filteredEntities.map(entity => ({
-    id: entity.metadata.uid || entity.metadata.name,
+    id: entity.metadata.name, // Use name as id for consistent routing with mock data
     name: entity.metadata.name,
     namespace: entity.metadata.namespace || 'default',
     entity: entity,
@@ -343,7 +343,7 @@ export const ApiCatalogTable: React.FC = () => {
       render: row => (
         <IconButton
           component={Link}
-          to={`/catalog/${row.namespace}/api/${row.name}`}
+          to={`/api-detail/${row.id}`}
           size="small"
           className={classes.actionColumn}
         >

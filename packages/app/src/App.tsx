@@ -1,12 +1,5 @@
-import {
-  apiDocsPlugin,
-  ApiExplorerPage,
-} from '@backstage/plugin-api-docs';
-import {
-  CatalogEntityPage,
-  CatalogIndexPage,
-  catalogPlugin,
-} from '@backstage/plugin-catalog';
+import { apiDocsPlugin, ApiExplorerPage } from '@backstage/plugin-api-docs';
+import { CatalogEntityPage, catalogPlugin } from '@backstage/plugin-catalog';
 import {
   CatalogImportPage,
   catalogImportPlugin,
@@ -26,6 +19,7 @@ import { UnifiedThemeProvider } from '@backstage/theme';
 import { Route } from 'react-router-dom';
 import { apis } from './apis';
 import { entityPage } from './components/catalog/EntityPage';
+import { CustomCatalogIndexPage } from './components/catalog/CustomCatalogIndex';
 import Layout from './layout';
 import { searchPage } from './components/search/SearchPage';
 
@@ -46,7 +40,9 @@ import { apertureThemeDark } from './theme/my-theme-dark';
 import { CustomDashboard } from './views/Dashboard';
 import { ApiCatalog } from './views/ApiCatalog';
 import { PublishApi } from './views/PublishApi';
+import { ApiDetail } from './views/ApiDetail';
 import { AppTemplates } from './views/AppTemplates';
+import { Deploy } from './views/Deploy';
 import { DevAgents } from './views/DevAgents';
 import { Observability } from './views/Observability';
 import { Reference } from './views/Reference';
@@ -101,7 +97,7 @@ const app = createApp({
 const routes = (
   <FlatRoutes>
     <Route path="/" element={<CustomDashboard />} />
-    <Route path="/catalog" element={<CatalogIndexPage />} />
+    <Route path="/catalog" element={<CustomCatalogIndexPage />} />
     <Route
       path="/catalog/:namespace/:kind/:name"
       element={<CatalogEntityPage />}
@@ -136,8 +132,11 @@ const routes = (
     <Route path="/notifications" element={<NotificationsPage />} />
 
     <Route path="/publish-api" element={<PublishApi />} />
-    <Route path="/app-catalog" element={<CatalogIndexPage />} />
+    <Route path="/api-detail/:apiId" element={<ApiDetail />} />
+    <Route path="/app-catalog" element={<CustomCatalogIndexPage />} />
     <Route path="/app-templates" element={<AppTemplates />} />
+    <Route path="/deploy" element={<Deploy />} />
+    <Route path="/deploy/:templateId" element={<Deploy />} />
     <Route path="/dev-agents" element={<DevAgents />} />
     <Route path="/observability" element={<Observability />} />
     <Route path="/reference" element={<Reference />} />

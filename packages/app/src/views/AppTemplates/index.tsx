@@ -1,61 +1,113 @@
+import { useState } from 'react';
 import { Content, Header, Page } from '@backstage/core-components';
-import { Box, Typography, makeStyles } from '@material-ui/core';
-import DescriptionIcon from '@material-ui/icons/Description';
+import { Box, Tabs, Tab, Grid, Typography, makeStyles } from '@material-ui/core';
+import { TemplateCard } from './TemplateCard';
+import { categories, appTemplates } from './mockData';
 
 const useStyles = makeStyles(theme => ({
-  container: {
+  tabsContainer: {
+    marginBottom: theme.spacing(3),
+    borderBottom: `1px solid ${theme.palette.divider}`,
+  },
+  tab: {
+    textTransform: 'none',
+    minWidth: 120,
+    fontWeight: 500,
+  },
+  tabLabel: {
     display: 'flex',
-    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
-    minHeight: 400,
-    textAlign: 'center',
-    padding: theme.spacing(4),
+    gap: theme.spacing(1),
   },
-  icon: {
-    fontSize: 80,
-    color: '#0052CC',
-    marginBottom: theme.spacing(3),
-  },
-  title: {
-    fontSize: '2rem',
-    fontWeight: 700,
-    marginBottom: theme.spacing(2),
-    color: theme.palette.text.primary,
-  },
-  subtitle: {
-    fontSize: '1.1rem',
-    color: theme.palette.text.secondary,
-    marginBottom: theme.spacing(3),
-    maxWidth: 500,
-  },
-  comingSoon: {
-    display: 'inline-block',
-    backgroundColor: '#0052CC',
+  tabCount: {
+    backgroundColor: theme.palette.primary.main,
     color: '#fff',
-    padding: theme.spacing(1, 3),
-    borderRadius: 20,
-    fontSize: '0.9rem',
+    fontSize: '0.7rem',
     fontWeight: 600,
+    padding: '2px 6px',
+    borderRadius: 10,
+    minWidth: 20,
+    textAlign: 'center',
+  },
+  emptyState: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: 200,
   },
 }));
 
 export const AppTemplates = () => {
   const classes = useStyles();
+  const [currentTab, setCurrentTab] = useState(0);
+
+  const handleTabChange = (_: React.ChangeEvent<{}>, newValue: number) => {
+    setCurrentTab(newValue);
+  };
+
+  const getCountForCategory = (index: number): number => {
+    if (index === 0) return appTemplates.length;
+    return appTemplates.filter(
+      template => template.category === categories[index].value,
+    ).length;
+  };
+
+  const filteredTemplates =
+    currentTab === 0
+      ? appTemplates
+      : appTemplates.filter(
+          template => template.category === categories[currentTab].value,
+        );
 
   return (
     <Page themeId="tool">
-      <Header title="App Templates" subtitle="Create from templates" />
+      <Header
+        title="App Templates"
+        subtitle="Create and deploy applications from pre-configured templates"
+      />
       <Content>
-        <Box className={classes.container}>
-          <DescriptionIcon className={classes.icon} />
-          <Typography className={classes.title}>App Templates</Typography>
-          <Typography className={classes.subtitle}>
-            Create new applications quickly using pre-defined templates.
-            Choose from a variety of templates for different tech stacks and use cases.
-          </Typography>
-          <span className={classes.comingSoon}>Coming Soon</span>
+        <Box className={classes.tabsContainer}>
+          <Tabs
+            value={currentTab}
+            onChange={handleTabChange}
+            indicatorColor="primary"
+            textColor="primary"
+          >
+            {categories.map((category, index) => {
+              const count = getCountForCategory(index);
+              return (
+                <Tab
+                  key={category.value}
+                  label={
+                    <Box className={classes.tabLabel}>
+                      {category.label}
+                      {count > 0 && (
+                        <span className={classes.tabCount}>{count}</span>
+                      )}
+                    </Box>
+                  }
+                  className={classes.tab}
+                />
+              );
+            })}
+          </Tabs>
         </Box>
+
+        <Grid container spacing={3}>
+          {filteredTemplates.map(template => (
+            <Grid item xs={12} sm={6} md={4} key={template.id}>
+              <TemplateCard template={template} />
+            </Grid>
+          ))}
+        </Grid>
+
+        {filteredTemplates.length === 0 && (
+          <Box className={classes.emptyState}>
+            <Typography color="textSecondary">
+              No templates found in this category.
+            </Typography>
+          </Box>
+        )}
       </Content>
     </Page>
   );

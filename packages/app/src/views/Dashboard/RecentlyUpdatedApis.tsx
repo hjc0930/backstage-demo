@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Box,
   Typography,
@@ -12,6 +13,8 @@ import {
   makeStyles,
 } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
+
+import { getRecentlyUpdatedApis, type ApiRecord } from '../shared/apiData';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -66,82 +69,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-interface ApiItem {
-  id: string;
-  name: string;
-  description: string;
-  owner: string;
-  status: 'Active' | 'Deprecated' | 'Draft';
-  updatedAt: string;
-  version: string;
-  type: string;
-}
-
-const mockApiData: ApiItem[] = [
-  {
-    id: '1',
-    name: 'User Service API',
-    description: 'User management and authentication service',
-    owner: 'Team Alpha',
-    status: 'Active',
-    updatedAt: '2 hours ago',
-    version: 'v2.1.0',
-    type: 'REST',
-  },
-  {
-    id: '2',
-    name: 'Payment API',
-    description: 'Payment processing and billing service',
-    owner: 'Team Beta',
-    status: 'Active',
-    updatedAt: '1 day ago',
-    version: 'v1.5.2',
-    type: 'REST',
-  },
-  {
-    id: '3',
-    name: 'Notification Service',
-    description: 'Email and push notification service',
-    owner: 'Team Gamma',
-    status: 'Active',
-    updatedAt: '3 days ago',
-    version: 'v3.0.1',
-    type: 'gRPC',
-  },
-  {
-    id: '4',
-    name: 'Inventory API',
-    description: 'Product inventory management',
-    owner: 'Team Delta',
-    status: 'Draft',
-    updatedAt: '5 days ago',
-    version: 'v0.9.0',
-    type: 'GraphQL',
-  },
-  {
-    id: '5',
-    name: 'Legacy Auth API',
-    description: 'Deprecated authentication service',
-    owner: 'Team Alpha',
-    status: 'Deprecated',
-    updatedAt: '1 week ago',
-    version: 'v1.0.0',
-    type: 'REST',
-  },
-  {
-    id: '6',
-    name: 'Analytics API',
-    description: 'Business analytics and reporting',
-    owner: 'Team Beta',
-    status: 'Active',
-    updatedAt: '2 weeks ago',
-    version: 'v4.2.0',
-    type: 'REST',
-  },
-];
-
 const getStatusChipClass = (
-  status: ApiItem['status'],
+  status: ApiRecord['status'],
   classes: ReturnType<typeof useStyles>,
 ) => {
   switch (status) {
@@ -156,12 +85,40 @@ const getStatusChipClass = (
   }
 };
 
-export const RecentlyUpdatedApis = () => {
+const formatRelativeTime = (dateString: string): string => {
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+  if (diffDays === 0) {
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+    if (diffHours === 0) {
+      const diffMinutes = Math.floor(diffMs / (1000 * 60));
+      return `${diffMinutes} minutes ago`;
+    }
+    return `${diffHours} hours ago`;
+  } else if (diffDays === 1) {
+    return '1 day ago';
+  } else if (diffDays < 7) {
+    return `${diffDays} days ago`;
+  } else if (diffDays < 30) {
+    const weeks = Math.floor(diffDays / 7);
+    return weeks === 1 ? '1 week ago' : `${weeks} weeks ago`;
+  } else {
+    return date.toLocaleDateString();
+  }
+};
+
+export const RecentlyUpdatedApis: React.FC = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
+  // Get recently updated APIs from shared mock data
+  const recentApis = getRecentlyUpdatedApis(6);
+
   const handleApiClick = (apiId: string) => {
-    navigate(`/catalog/default/api/${apiId}`);
+    navigate(`/api-detail/${apiId}`);
   };
 
   return (
@@ -180,7 +137,7 @@ export const RecentlyUpdatedApis = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {mockApiData.map(api => (
+            {recentApis.map(api => (
               <TableRow key={api.id} hover>
                 <TableCell className={classes.bodyCell}>
                   <Typography
@@ -191,7 +148,7 @@ export const RecentlyUpdatedApis = () => {
                   </Typography>
                 </TableCell>
                 <TableCell className={classes.bodyCell}>{api.type}</TableCell>
-                <TableCell className={classes.bodyCell}>{api.owner}</TableCell>
+                <TableCell className={classes.bodyCell}>{api.team}</TableCell>
                 <TableCell className={classes.bodyCell}>
                   <Chip
                     label={api.status}
@@ -200,10 +157,10 @@ export const RecentlyUpdatedApis = () => {
                   />
                 </TableCell>
                 <TableCell className={classes.bodyCell}>
-                  {api.version}
+                  v{api.version}
                 </TableCell>
                 <TableCell className={classes.bodyCell}>
-                  {api.updatedAt}
+                  {formatRelativeTime(api.updatedAt)}
                 </TableCell>
               </TableRow>
             ))}

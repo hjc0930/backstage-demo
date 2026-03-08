@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     gap: theme.spacing(1),
   },
-  registerButton: {
+  publishButton: {
     backgroundColor: '#0052CC',
     color: '#fff',
     '&:hover': {
@@ -33,10 +33,10 @@ export const ApiCatalog = () => {
             variant="contained"
             color="primary"
             startIcon={<AddIcon />}
-            className={classes.registerButton}
-            onClick={() => navigate('/catalog-import')}
+            className={classes.publishButton}
+            onClick={() => navigate('/publish-api')}
           >
-            Register API
+            Publish API
           </Button>
         </Box>
       </Header>

@@ -1,42 +1,22 @@
 import { Content, Header, Page } from '@backstage/core-components';
-import { Box, Typography, makeStyles } from '@material-ui/core';
-import ShowChartIcon from '@material-ui/icons/ShowChart';
+import { Box, Grid, makeStyles } from '@material-ui/core';
+import { StatCard } from './StatCard';
+import { ApplicationList } from './ApplicationList';
+import { ApiStatusList } from './ApiStatusList';
+import { SystemHealth } from './SystemHealth';
+import {
+  statsData,
+  applicationsData,
+  apiEndpointsData,
+  systemMetricsData,
+} from './mockData';
 
 const useStyles = makeStyles(theme => ({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    minHeight: 400,
-    textAlign: 'center',
-    padding: theme.spacing(4),
-  },
-  icon: {
-    fontSize: 80,
-    color: '#0052CC',
+  statsRow: {
     marginBottom: theme.spacing(3),
   },
-  title: {
-    fontSize: '2rem',
-    fontWeight: 700,
-    marginBottom: theme.spacing(2),
-    color: theme.palette.text.primary,
-  },
-  subtitle: {
-    fontSize: '1.1rem',
-    color: theme.palette.text.secondary,
+  contentRow: {
     marginBottom: theme.spacing(3),
-    maxWidth: 500,
-  },
-  comingSoon: {
-    display: 'inline-block',
-    backgroundColor: '#0052CC',
-    color: '#fff',
-    padding: theme.spacing(1, 3),
-    borderRadius: 20,
-    fontSize: '0.9rem',
-    fontWeight: 600,
   },
 }));
 
@@ -45,16 +25,41 @@ export const Observability = () => {
 
   return (
     <Page themeId="tool">
-      <Header title="Observability" subtitle="Monitor your services" />
+      <Header
+        title="Observability"
+        subtitle="Real-time monitoring and system health insights"
+      />
       <Content>
-        <Box className={classes.container}>
-          <ShowChartIcon className={classes.icon} />
-          <Typography className={classes.title}>Monitoring & Observability</Typography>
-          <Typography className={classes.subtitle}>
-            Monitor the health and performance of your services in real-time.
-            View metrics, traces, logs, and set up alerts for your applications.
-          </Typography>
-          <span className={classes.comingSoon}>Coming Soon</span>
+        {/* Stats Row */}
+        <Box className={classes.statsRow}>
+          <Grid container spacing={3}>
+            {statsData.map(stat => (
+              <Grid item xs={6} sm={3} key={stat.title}>
+                <StatCard stat={stat} />
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+
+        {/* Application Status and API Status Row */}
+        <Box className={classes.contentRow}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={8}>
+              <ApplicationList applications={applicationsData} />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <ApiStatusList endpoints={apiEndpointsData} />
+            </Grid>
+          </Grid>
+        </Box>
+
+        {/* System Health Row */}
+        <Box>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <SystemHealth metrics={systemMetricsData} />
+            </Grid>
+          </Grid>
         </Box>
       </Content>
     </Page>
