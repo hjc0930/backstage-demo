@@ -9,9 +9,9 @@ backend:
   # Used for enabling authentication, secret is shared by all backend plugins
   # See https://backstage.io/docs/auth/service-to-service-auth for
   # information on the format
-  # auth:
-  #   keys:
-  #     - secret: ${BACKEND_SECRET}
+  auth:
+    keys:
+      - secret: "development-secret-key-please-change-in-production"
   baseUrl: http://localhost:7007
   listen:
     port: 7007
@@ -89,6 +89,12 @@ catalog:
     # Local example data, file locations are relative to the backend process, typically `packages/backend`
     - type: file
       target: ../../examples/entities.yaml
+
+    # Local example APIs with custom annotations
+    - type: file
+      target: ../../examples/apis.yaml
+      rules:
+        - allow: [API]
 
     # Local example template
     - type: file

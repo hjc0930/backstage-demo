@@ -1,0 +1,107 @@
+---
+# Sample API 1 - Production API with OAuth2
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: user-service-api
+  title: User Service API
+  description: User management and authentication API
+  annotations:
+    backstage.io/api-version: v2.1.0
+    backstage.io/api-category: internal
+    backstage.io/api-gateway: kong
+    backstage.io/auth-type: oauth2
+    backstage.io/last-updated: '2026-02-15T10:30:00Z'
+spec:
+  type: openapi
+  lifecycle: production
+  owner: group:team-platform
+  system: user-services
+  definition: |
+    openapi: 3.0.0
+    info:
+      title: User Service API
+      version: 2.1.0
+    paths:
+      /users:
+        get:
+          summary: List all users
+---
+# Sample API 2 - Experimental API with API Key
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: payment-api
+  title: Payment Processing API
+  description: Payment gateway integration API
+  annotations:
+    backstage.io/api-version: v1.5.2
+    backstage.io/api-category: external
+    backstage.io/api-gateway: apigee
+    backstage.io/auth-type: api-key
+    backstage.io/last-updated: '2026-03-01T14:20:00Z'
+spec:
+  type: rest
+  lifecycle: experimental
+  owner: group:team-payments
+  system: payment-system
+  definition: |
+    openapi: 3.0.0
+    info:
+      title: Payment API
+      version: 1.5.2
+    paths:
+      /payments:
+        post:
+          summary: Process payment
+---
+# Sample API 3 - Deprecated API with JWT
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: legacy-notification-api
+  title: Legacy Notification API
+  description: Old notification service (deprecated)
+  annotations:
+    backstage.io/api-version: v0.9.1
+    backstage.io/api-category: internal
+    backstage.io/api-gateway: aws-apigateway
+    backstage.io/auth-type: jwt
+    backstage.io/last-updated: '2025-11-20T08:15:00Z'
+spec:
+  type: graphql
+  lifecycle: deprecated
+  owner: group:team-communications
+  system: notification-system
+  definition: |
+    type Query {
+      notifications: [Notification]
+    }
+---
+# Sample API 4 - Partner API with no auth
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: partner-data-api
+  title: Partner Data API
+  description: Public API for partner integrations
+  annotations:
+    backstage.io/api-version: v3.0.0
+    backstage.io/api-category: partner
+    backstage.io/api-gateway: kong
+    backstage.io/auth-type: none
+    backstage.io/last-updated: '2026-03-05T16:45:00Z'
+spec:
+  type: openapi
+  lifecycle: production
+  owner: group:team-partnerships
+  system: partner-integrations
+  definition: |
+    openapi: 3.0.0
+    info:
+      title: Partner Data API
+      version: 3.0.0
+    paths:
+      /data:
+        get:
+          summary: Get partner data

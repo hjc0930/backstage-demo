@@ -1,7 +1,17 @@
 {
   "permissions": {
     "allow": [
-      "Bash(yarn install:*)"
+      "Bash(yarn install:*)",
+      "Bash(yarn tsc:*)",
+      "WebSearch",
+      "Bash(ls:*)",
+      "Bash(xargs:*)",
+      "Bash(dir:*)",
+      "Bash(npx tsc:*)",
+      "Bash(yarn start)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(yarn add:*)"
     ]
   }
 }
