@@ -6,7 +6,8 @@
       "WebSearch",
       "Bash(ls:*)",
       "Bash(xargs:*)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(npx tsc:*)"
     ]
   }
 }

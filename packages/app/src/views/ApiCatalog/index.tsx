@@ -1,62 +1,50 @@
 import { Content, Header, Page } from '@backstage/core-components';
-import { Box, Typography, makeStyles } from '@material-ui/core';
-import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
+import { Box, Button, makeStyles } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import { useNavigate } from 'react-router-dom';
+import { ApiCatalogTable } from './ApiCatalogTable';
 
 const useStyles = makeStyles(theme => ({
-  container: {
+  headerActions: {
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    minHeight: 400,
-    textAlign: 'center',
-    padding: theme.spacing(4),
+    gap: theme.spacing(1),
   },
-  icon: {
-    fontSize: 80,
-    color: '#0052CC',
-    marginBottom: theme.spacing(3),
-  },
-  title: {
-    fontSize: '2rem',
-    fontWeight: 700,
-    marginBottom: theme.spacing(2),
-    color: theme.palette.text.primary,
-  },
-  subtitle: {
-    fontSize: '1.1rem',
-    color: theme.palette.text.secondary,
-    marginBottom: theme.spacing(3),
-    maxWidth: 500,
-  },
-  comingSoon: {
-    display: 'inline-block',
+  registerButton: {
     backgroundColor: '#0052CC',
     color: '#fff',
-    padding: theme.spacing(1, 3),
-    borderRadius: 20,
-    fontSize: '0.9rem',
-    fontWeight: 600,
+    '&:hover': {
+      backgroundColor: '#003F99',
+    },
   },
 }));
 
 export const ApiCatalog = () => {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   return (
     <Page themeId="tool">
-      <Header title="API Catalog" subtitle="Browse and manage your APIs" />
-      <Content>
-        <Box className={classes.container}>
-          <SettingsEthernetIcon className={classes.icon} />
-          <Typography className={classes.title}>API Catalog</Typography>
-          <Typography className={classes.subtitle}>
-            Browse, discover, and manage all your organization's APIs in one centralized location.
-            View API documentation, versions, and dependencies.
-          </Typography>
-          <span className={classes.comingSoon}>Coming Soon</span>
+      <Header
+        title="API Catalog"
+        subtitle="Browse and manage all your organization's APIs"
+      >
+        <Box className={classes.headerActions}>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<AddIcon />}
+            className={classes.registerButton}
+            onClick={() => navigate('/catalog-import')}
+          >
+            Register API
+          </Button>
         </Box>
+      </Header>
+      <Content>
+        <ApiCatalogTable />
       </Content>
     </Page>
   );
 };
+
+export default ApiCatalog;

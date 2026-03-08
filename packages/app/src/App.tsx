@@ -1,4 +1,7 @@
-import { apiDocsPlugin } from '@backstage/plugin-api-docs';
+import {
+  apiDocsPlugin,
+  ApiExplorerPage,
+} from '@backstage/plugin-api-docs';
 import {
   CatalogEntityPage,
   CatalogIndexPage,
@@ -41,7 +44,6 @@ import { SignalsDisplay } from '@backstage/plugin-signals';
 import { apertureTheme } from './theme/my-theme';
 import { apertureThemeDark } from './theme/my-theme-dark';
 import { CustomDashboard } from './views/Dashboard';
-import { CustomApiDocs } from './views/ApiDocs';
 import { ApiCatalog } from './views/ApiCatalog';
 import { PublishApi } from './views/PublishApi';
 import { AppTemplates } from './views/AppTemplates';
@@ -116,7 +118,8 @@ const routes = (
       </TechDocsAddons>
     </Route>
     <Route path="/create" element={<ScaffolderPage />} />
-    <Route path="/api-docs" element={<CustomApiDocs />} />
+    <Route path="/api-catalog" element={<ApiCatalog />} />
+    <Route path="/api-docs" element={<ApiExplorerPage />} />
     <Route
       path="/catalog-import"
       element={
@@ -131,7 +134,7 @@ const routes = (
     <Route path="/settings" element={<UserSettingsPage />} />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
     <Route path="/notifications" element={<NotificationsPage />} />
-    <Route path="/api-catalog" element={<ApiCatalog />} />
+
     <Route path="/publish-api" element={<PublishApi />} />
     <Route path="/app-catalog" element={<CatalogIndexPage />} />
     <Route path="/app-templates" element={<AppTemplates />} />

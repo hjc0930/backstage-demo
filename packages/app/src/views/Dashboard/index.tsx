@@ -7,6 +7,8 @@ import { catalogApiRef } from '@backstage/plugin-catalog-react';
 import { useNavigate } from 'react-router-dom';
 import AiChatModule from './AiChatModule';
 import ExploreFeatures from './ExploreFeatures';
+import QuickActions from './QuickActions';
+import RecentlyUpdatedApis from './RecentlyUpdatedApis';
 
 const useWelcomeCardStyles = makeStyles(theme => ({
   root: {
@@ -185,6 +187,12 @@ export const CustomDashboard = () => {
           </Grid>
           <Grid item xs={12}>
             <AiChatModule />
+          </Grid>
+          <Grid item xs={12}>
+            <QuickActions />
+          </Grid>
+          <Grid item xs={12}>
+            <RecentlyUpdatedApis />
           </Grid>
           <Grid item xs={12}>
             <ExploreFeatures />
