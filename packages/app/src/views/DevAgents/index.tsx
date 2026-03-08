@@ -1,4 +1,4 @@
-import { Content, Header, Page } from '@backstage/core-components';
+import { Content } from '@backstage/core-components';
 import {
   Box,
   Card,
@@ -204,42 +204,36 @@ export const DevAgents = () => {
   const classes = useStyles();
 
   return (
-    <Page themeId="tool">
-      <Header
-        title="Development Agents"
-        subtitle="AI-powered assistants to streamline your development workflow"
-      />
-      <Content>
-        {/* Available Agents Section */}
-        <Box className={classes.section}>
-          <Typography className={classes.sectionTitle}>
-            Available Agents
-            <span className={classes.countBadge}>{availableAgents.length}</span>
-          </Typography>
-          <Grid container spacing={3}>
-            {availableAgents.map(agent => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={agent.id}>
-                <AgentCard agent={agent} />
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
+    <Content>
+      {/* Available Agents Section */}
+      <Box className={classes.section}>
+        <Typography className={classes.sectionTitle}>
+          Available Agents
+          <span className={classes.countBadge}>{availableAgents.length}</span>
+        </Typography>
+        <Grid container spacing={3}>
+          {availableAgents.map(agent => (
+            <Grid item xs={12} sm={6} md={4} lg={3} key={agent.id}>
+              <AgentCard agent={agent} />
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
 
-        {/* Unavailable Agents Section */}
-        <Box className={classes.section}>
-          <Typography className={classes.sectionTitle}>
-            Unavailable Agents
-            <span className={classes.countBadge}>{unavailableAgents.length}</span>
-          </Typography>
-          <Grid container spacing={3}>
-            {unavailableAgents.map(agent => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={agent.id}>
-                <AgentCard agent={agent} />
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-      </Content>
-    </Page>
+      {/* Unavailable Agents Section */}
+      <Box className={classes.section}>
+        <Typography className={classes.sectionTitle}>
+          Unavailable Agents
+          <span className={classes.countBadge}>{unavailableAgents.length}</span>
+        </Typography>
+        <Grid container spacing={3}>
+          {unavailableAgents.map(agent => (
+            <Grid item xs={12} sm={6} md={4} lg={3} key={agent.id}>
+              <AgentCard agent={agent} />
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+    </Content>
   );
 };

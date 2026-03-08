@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Content, Header, Page } from '@backstage/core-components';
+import { Content } from '@backstage/core-components';
 import { Grid, Box, Typography, Button, makeStyles } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { useApi } from '@backstage/core-plugin-api';
@@ -123,82 +123,79 @@ export const CustomDashboard = () => {
   }, [catalogApi]);
 
   return (
-    <Page themeId="tool">
-      <Header title="Dashboard" subtitle="Internal Developer Portal" />
-      <Content>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Box className={classes.root}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} md={7}>
-                  <Box className={classes.leftColumn}>
-                    <Box>
-                      <Typography variant="h5" className={classes.title}>
-                        Welcome to the Internal Developer Portal
-                      </Typography>
-                      <Typography className={classes.subtitle}>
-                        Your one-stop platform for APIs, documentation, and
-                        engineering standards. Build faster with our
-                        comprehensive catalog of services and resources.
-                      </Typography>
-                    </Box>
-                    <Button
-                      variant="contained"
-                      className={classes.button}
-                      startIcon={<SearchIcon />}
-                      onClick={() => navigate('/api-docs')}
-                    >
-                      Browse APIs
-                    </Button>
-                  </Box>
-                </Grid>
-                <Grid item xs={12} md={5}>
-                  <Box className={classes.statsContainer}>
-                    <Typography className={classes.statsTitle}>
-                      Platform Stats
+    <Content>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Box className={classes.root}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={7}>
+                <Box className={classes.leftColumn}>
+                  <Box>
+                    <Typography variant="h5" className={classes.title}>
+                      Welcome to the Internal Developer Portal
                     </Typography>
-                    {loading ? (
-                      <Typography className={classes.statLabel}>
-                        Loading...
-                      </Typography>
-                    ) : (
-                      <>
-                        <StatItem
-                          label="Total APIs"
-                          value={stats.totalApis}
-                          classes={classes}
-                        />
-                        <StatItem
-                          label="Active Services"
-                          value={stats.activeServices}
-                          classes={classes}
-                        />
-                        <StatItem
-                          label="Teams"
-                          value={stats.teams}
-                          classes={classes}
-                        />
-                      </>
-                    )}
+                    <Typography className={classes.subtitle}>
+                      Your one-stop platform for APIs, documentation, and
+                      engineering standards. Build faster with our
+                      comprehensive catalog of services and resources.
+                    </Typography>
                   </Box>
-                </Grid>
+                  <Button
+                    variant="contained"
+                    className={classes.button}
+                    startIcon={<SearchIcon />}
+                    onClick={() => navigate('/api-docs')}
+                  >
+                    Browse APIs
+                  </Button>
+                </Box>
               </Grid>
-            </Box>
-          </Grid>
-          <Grid item xs={12}>
-            <AiChatModule />
-          </Grid>
-          <Grid item xs={12}>
-            <QuickActions />
-          </Grid>
-          <Grid item xs={12}>
-            <RecentlyUpdatedApis />
-          </Grid>
-          <Grid item xs={12}>
-            <ExploreFeatures />
-          </Grid>
+              <Grid item xs={12} md={5}>
+                <Box className={classes.statsContainer}>
+                  <Typography className={classes.statsTitle}>
+                    Platform Stats
+                  </Typography>
+                  {loading ? (
+                    <Typography className={classes.statLabel}>
+                      Loading...
+                    </Typography>
+                  ) : (
+                    <>
+                      <StatItem
+                        label="Total APIs"
+                        value={stats.totalApis}
+                        classes={classes}
+                      />
+                      <StatItem
+                        label="Active Services"
+                        value={stats.activeServices}
+                        classes={classes}
+                      />
+                      <StatItem
+                        label="Teams"
+                        value={stats.teams}
+                        classes={classes}
+                      />
+                    </>
+                  )}
+                </Box>
+              </Grid>
+            </Grid>
+          </Box>
         </Grid>
-      </Content>
-    </Page>
+        <Grid item xs={12}>
+          <AiChatModule />
+        </Grid>
+        <Grid item xs={12}>
+          <QuickActions />
+        </Grid>
+        <Grid item xs={12}>
+          <RecentlyUpdatedApis />
+        </Grid>
+        <Grid item xs={12}>
+          <ExploreFeatures />
+        </Grid>
+      </Grid>
+    </Content>
   );
 };

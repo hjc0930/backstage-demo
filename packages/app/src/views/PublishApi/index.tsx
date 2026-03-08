@@ -1,8 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import {
   Content,
-  Header,
-  Page,
   HeaderLabel,
 } from '@backstage/core-components';
 import {
@@ -47,6 +45,11 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     minWidth: 120,
+  },
+  headerLabels: {
+    display: 'flex',
+    gap: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
 }));
 
@@ -179,60 +182,54 @@ export const PublishApi: React.FC = () => {
   const showNavigation = !isLastStep || publishStatus === 'idle';
 
   return (
-    <Page themeId="tool">
-      <Header
-        title="Publish API"
-        subtitle="Register and publish new APIs to the developer portal"
-      >
-        <HeaderLabel label="Step" value={`${activeStep + 1} of ${STEPS.length}`} />
-      </Header>
+    <Content>
+      <Container maxWidth="lg" className={classes.container}>
+        <Box className={classes.headerLabels}>
+          <HeaderLabel label="Step" value={`${activeStep + 1} of ${STEPS.length}`} />
+        </Box>
+        <Box className={classes.stepperContainer}>
+          <PublishApiStepper
+            steps={STEPS}
+            activeStep={activeStep}
+            onStepClick={handleStepClick}
+          />
+        </Box>
 
-      <Content>
-        <Container maxWidth="lg" className={classes.container}>
-          <Box className={classes.stepperContainer}>
-            <PublishApiStepper
-              steps={STEPS}
-              activeStep={activeStep}
-              onStepClick={handleStepClick}
-            />
+        <Paper>
+          <Box className={classes.stepContent}>
+            <Typography variant="h5" gutterBottom>
+              {STEPS[activeStep].label}
+            </Typography>
+            {renderStepContent()}
           </Box>
 
-          <Paper>
-            <Box className={classes.stepContent}>
-              <Typography variant="h5" gutterBottom>
-                {STEPS[activeStep].label}
-              </Typography>
-              {renderStepContent()}
-            </Box>
-
-            {showNavigation && (
-              <Box className={classes.buttonContainer} px={3} pb={3}>
+          {showNavigation && (
+            <Box className={classes.buttonContainer} px={3} pb={3}>
+              <Button
+                variant="outlined"
+                onClick={handleBack}
+                disabled={activeStep === 0}
+                startIcon={<NavigateBeforeIcon />}
+                className={classes.button}
+              >
+                Back
+              </Button>
+              {!isLastStep && (
                 <Button
-                  variant="outlined"
-                  onClick={handleBack}
-                  disabled={activeStep === 0}
-                  startIcon={<NavigateBeforeIcon />}
+                  variant="contained"
+                  color="primary"
+                  onClick={handleNext}
+                  endIcon={<NavigateNextIcon />}
                   className={classes.button}
                 >
-                  Back
+                  Next
                 </Button>
-                {!isLastStep && (
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    endIcon={<NavigateNextIcon />}
-                    className={classes.button}
-                  >
-                    Next
-                  </Button>
-                )}
-              </Box>
-            )}
-          </Paper>
-        </Container>
-      </Content>
-    </Page>
+              )}
+            </Box>
+          )}
+        </Paper>
+      </Container>
+    </Content>
   );
 };
 

@@ -8,7 +8,7 @@ import {
   Box,
   IconButton,
 } from '@material-ui/core';
-import { Header, Page, Content, HeaderLabel } from '@backstage/core-components';
+import { Content, HeaderLabel } from '@backstage/core-components';
 import EditIcon from '@material-ui/icons/Edit';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
@@ -35,6 +35,16 @@ const useStyles = makeStyles(theme => ({
   errorContainer: {
     textAlign: 'center',
     padding: theme.spacing(4),
+  },
+  headerLabels: {
+    display: 'flex',
+    gap: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+  actionRow: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: theme.spacing(2),
   },
 }));
 
@@ -63,83 +73,74 @@ export const ApiDetail: React.FC = () => {
 
   if (!api) {
     return (
-      <Page themeId="tool">
-        <Header title="API Not Found" />
-        <Content>
-          <Box className={classes.errorContainer}>
-            <Typography variant="h5" gutterBottom>
-              API not found
-            </Typography>
-            <Typography variant="body1" color="textSecondary" paragraph>
-              The API with ID "{apiId}" could not be found.
-            </Typography>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => navigate('/')}
-            >
-              Go to Dashboard
-            </Button>
-          </Box>
-        </Content>
-      </Page>
+      <Content>
+        <Box className={classes.errorContainer}>
+          <Typography variant="h5" gutterBottom>
+            API not found
+          </Typography>
+          <Typography variant="body1" color="textSecondary" paragraph>
+            The API with ID "{apiId}" could not be found.
+          </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => navigate('/')}
+          >
+            Go to Dashboard
+          </Button>
+        </Box>
+      </Content>
     );
   }
 
   return (
-    <Page themeId="tool">
-      <Header
-        title={api.name}
-        subtitle={`${api.type} API - ${api.description.substring(0, 60)}...`}
-      >
-        <HeaderLabel label="Owner" value={api.owner} />
-        <HeaderLabel label="Status" value={api.status} />
-        <HeaderLabel label="Version" value={api.version} />
-      </Header>
-
-      <Content>
-        <Box className={classes.container}>
-          <Box mb={2} display="flex" alignItems="center">
-            <IconButton
-              className={classes.backButton}
-              onClick={handleBack}
-              size="small"
-            >
-              <ArrowBackIcon />
-            </IconButton>
-            <Button
-              variant="outlined"
-              size="small"
-              startIcon={<EditIcon />}
-              onClick={() => navigate(`/publish-api?edit=${apiId}`)}
-            >
-              Edit
-            </Button>
-          </Box>
-
-          <Grid container spacing={3}>
-            <Grid item xs={12} lg={8}>
-              <ApiInfoCard api={api} />
-              <EndpointsList
-                endpoints={api.endpoints}
-                onTryIt={handleTryIt}
-              />
-            </Grid>
-            <Grid item xs={12} lg={4}>
-              <GatewayInfoCard gateway={api.gateway} auth={api.auth} />
-            </Grid>
-          </Grid>
+    <Content>
+      <Box className={classes.container}>
+        <Box className={classes.headerLabels}>
+          <HeaderLabel label="Owner" value={api.owner} />
+          <HeaderLabel label="Status" value={api.status} />
+          <HeaderLabel label="Version" value={api.version} />
+        </Box>
+        <Box className={classes.actionRow}>
+          <IconButton
+            className={classes.backButton}
+            onClick={handleBack}
+            size="small"
+          >
+            <ArrowBackIcon />
+          </IconButton>
+          <Button
+            variant="outlined"
+            size="small"
+            startIcon={<EditIcon />}
+            onClick={() => navigate(`/publish-api?edit=${apiId}`)}
+          >
+            Edit
+          </Button>
         </Box>
 
-        <ApiDebugDrawer
-          open={modalOpen}
-          onClose={handleCloseModal}
-          endpoint={selectedEndpoint}
-          baseUrl={api.gateway.endpoint}
-          authConfig={api.auth}
-        />
-      </Content>
-    </Page>
+        <Grid container spacing={3}>
+          <Grid item xs={12} lg={8}>
+            <ApiInfoCard api={api} />
+            <EndpointsList
+              endpoints={api.endpoints}
+              onTryIt={handleTryIt}
+            />
+          </Grid>
+          <Grid item xs={12} lg={4}>
+            <GatewayInfoCard gateway={api.gateway} auth={api.auth} />
+          </Grid>
+        </Grid>
+      </Box>
+
+      <ApiDebugDrawer
+        open={modalOpen}
+        onClose={handleCloseModal}
+        endpoint={selectedEndpoint}
+        baseUrl={api.gateway.endpoint}
+        authConfig={api.auth}
+      />
+    </Content>
   );
 };
 

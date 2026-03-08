@@ -1,4 +1,4 @@
-import { Content, Header, Page } from '@backstage/core-components';
+import { Content } from '@backstage/core-components';
 import { Box, Grid, makeStyles } from '@material-ui/core';
 import { StatCard } from './StatCard';
 import { ApplicationList } from './ApplicationList';
@@ -24,44 +24,38 @@ export const Observability = () => {
   const classes = useStyles();
 
   return (
-    <Page themeId="tool">
-      <Header
-        title="Observability"
-        subtitle="Real-time monitoring and system health insights"
-      />
-      <Content>
-        {/* Stats Row */}
-        <Box className={classes.statsRow}>
-          <Grid container spacing={3}>
-            {statsData.map(stat => (
-              <Grid item xs={6} sm={3} key={stat.title}>
-                <StatCard stat={stat} />
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
+    <Content>
+      {/* Stats Row */}
+      <Box className={classes.statsRow}>
+        <Grid container spacing={3}>
+          {statsData.map(stat => (
+            <Grid item xs={6} sm={3} key={stat.title}>
+              <StatCard stat={stat} />
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
 
-        {/* Application Status and API Status Row */}
-        <Box className={classes.contentRow}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={8}>
-              <ApplicationList applications={applicationsData} />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <ApiStatusList endpoints={apiEndpointsData} />
-            </Grid>
+      {/* Application Status and API Status Row */}
+      <Box className={classes.contentRow}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={8}>
+            <ApplicationList applications={applicationsData} />
           </Grid>
-        </Box>
+          <Grid item xs={12} md={4}>
+            <ApiStatusList endpoints={apiEndpointsData} />
+          </Grid>
+        </Grid>
+      </Box>
 
-        {/* System Health Row */}
-        <Box>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <SystemHealth metrics={systemMetricsData} />
-            </Grid>
+      {/* System Health Row */}
+      <Box>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <SystemHealth metrics={systemMetricsData} />
           </Grid>
-        </Box>
-      </Content>
-    </Page>
+        </Grid>
+      </Box>
+    </Content>
   );
 };

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Content, Header, Page } from '@backstage/core-components';
+import { Content } from '@backstage/core-components';
 import {
   Box,
   Card,
@@ -186,60 +186,54 @@ export const Standards = () => {
         );
 
   return (
-    <Page themeId="tool">
-      <Header
-        title="Development Standards"
-        subtitle="Comprehensive guidelines for coding standards, security practices, API design, and testing requirements. Ensure consistency and quality across all projects."
-      />
-      <Content>
-        <Box className={classes.tabsContainer}>
-          <Tabs
-            value={currentTab}
-            onChange={handleTabChange}
-            indicatorColor="primary"
-            textColor="primary"
-          >
-            {categories.map((category, index) => {
-              const count = getCountForCategory(index);
-              return (
-                <Tab
-                  key={category.value}
-                  label={
-                    <Box className={classes.tabLabel}>
-                      {category.label}
-                      {count > 0 && (
-                        <span className={classes.tabCount}>{count}</span>
-                      )}
-                    </Box>
-                  }
-                  className={classes.tab}
-                />
-              );
-            })}
-          </Tabs>
+    <Content>
+      <Box className={classes.tabsContainer}>
+        <Tabs
+          value={currentTab}
+          onChange={handleTabChange}
+          indicatorColor="primary"
+          textColor="primary"
+        >
+          {categories.map((category, index) => {
+            const count = getCountForCategory(index);
+            return (
+              <Tab
+                key={category.value}
+                label={
+                  <Box className={classes.tabLabel}>
+                    {category.label}
+                    {count > 0 && (
+                      <span className={classes.tabCount}>{count}</span>
+                    )}
+                  </Box>
+                }
+                className={classes.tab}
+              />
+            );
+          })}
+        </Tabs>
+      </Box>
+
+      <Grid container spacing={3}>
+        {filteredDocuments.map(document => (
+          <Grid item xs={12} sm={6} md={4} key={document.id}>
+            <StandardCard document={document} />
+          </Grid>
+        ))}
+      </Grid>
+
+      {filteredDocuments.length === 0 && (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight={200}
+        >
+          <Typography color="textSecondary">
+            No documents found in this category.
+          </Typography>
         </Box>
-
-        <Grid container spacing={3}>
-          {filteredDocuments.map(document => (
-            <Grid item xs={12} sm={6} md={4} key={document.id}>
-              <StandardCard document={document} />
-            </Grid>
-          ))}
-        </Grid>
-
-        {filteredDocuments.length === 0 && (
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            minHeight={200}
-          >
-            <Typography color="textSecondary">
-              No documents found in this category.
-            </Typography>
-          </Box>
-        )}
-      </Content>
-    </Page>
+      )}
+    </Content>
   );
 };

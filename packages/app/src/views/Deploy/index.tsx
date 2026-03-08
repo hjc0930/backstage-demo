@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Content, Header, Page } from '@backstage/core-components';
+import { Content } from '@backstage/core-components';
 import { Box, Button, makeStyles } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
@@ -156,46 +156,40 @@ export const Deploy = () => {
   };
 
   return (
-    <Page themeId="tool">
-      <Header
-        title="Deploy Template"
-        subtitle="Configure and deploy your application"
+    <Content className={classes.content}>
+      <DeployStepper
+        activeStep={activeStep}
+        onStepClick={handleStepClick}
+        completed={deploymentCompleted}
       />
-      <Content className={classes.content}>
-        <DeployStepper
-          activeStep={activeStep}
-          onStepClick={handleStepClick}
-          completed={deploymentCompleted}
-        />
-        <Box className={classes.stepContent}>
-          {renderStepContent()}
-        </Box>
-        {activeStep < 4 && (
-          <Box className={classes.footer}>
+      <Box className={classes.stepContent}>
+        {renderStepContent()}
+      </Box>
+      {activeStep < 4 && (
+        <Box className={classes.footer}>
+          <Button
+            variant="outlined"
+            onClick={handleBack}
+            disabled={activeStep === 0}
+            startIcon={<ArrowBackIcon />}
+            className={classes.button}
+          >
+            Back
+          </Button>
+          {activeStep < 3 && (
             <Button
-              variant="outlined"
-              onClick={handleBack}
-              disabled={activeStep === 0}
-              startIcon={<ArrowBackIcon />}
+              variant="contained"
+              color="primary"
+              onClick={handleNext}
+              disabled={!canProceed()}
+              endIcon={<ArrowForwardIcon />}
               className={classes.button}
             >
-              Back
+              Next
             </Button>
-            {activeStep < 3 && (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleNext}
-                disabled={!canProceed()}
-                endIcon={<ArrowForwardIcon />}
-                className={classes.button}
-              >
-                Next
-              </Button>
-            )}
-          </Box>
-        )}
-      </Content>
-    </Page>
+          )}
+        </Box>
+      )}
+    </Content>
   );
 };

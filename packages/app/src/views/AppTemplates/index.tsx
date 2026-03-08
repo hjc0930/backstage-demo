@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Content, Header, Page } from '@backstage/core-components';
+import { Content } from '@backstage/core-components';
 import { Box, Tabs, Tab, Grid, Typography, makeStyles } from '@material-ui/core';
 import { TemplateCard } from './TemplateCard';
 import { categories, appTemplates } from './mockData';
@@ -60,55 +60,49 @@ export const AppTemplates = () => {
         );
 
   return (
-    <Page themeId="tool">
-      <Header
-        title="App Templates"
-        subtitle="Create and deploy applications from pre-configured templates"
-      />
-      <Content>
-        <Box className={classes.tabsContainer}>
-          <Tabs
-            value={currentTab}
-            onChange={handleTabChange}
-            indicatorColor="primary"
-            textColor="primary"
-          >
-            {categories.map((category, index) => {
-              const count = getCountForCategory(index);
-              return (
-                <Tab
-                  key={category.value}
-                  label={
-                    <Box className={classes.tabLabel}>
-                      {category.label}
-                      {count > 0 && (
-                        <span className={classes.tabCount}>{count}</span>
-                      )}
-                    </Box>
-                  }
-                  className={classes.tab}
-                />
-              );
-            })}
-          </Tabs>
+    <Content>
+      <Box className={classes.tabsContainer}>
+        <Tabs
+          value={currentTab}
+          onChange={handleTabChange}
+          indicatorColor="primary"
+          textColor="primary"
+        >
+          {categories.map((category, index) => {
+            const count = getCountForCategory(index);
+            return (
+              <Tab
+                key={category.value}
+                label={
+                  <Box className={classes.tabLabel}>
+                    {category.label}
+                    {count > 0 && (
+                      <span className={classes.tabCount}>{count}</span>
+                    )}
+                  </Box>
+                }
+                className={classes.tab}
+              />
+            );
+          })}
+        </Tabs>
+      </Box>
+
+      <Grid container spacing={3}>
+        {filteredTemplates.map(template => (
+          <Grid item xs={12} sm={6} md={4} key={template.id}>
+            <TemplateCard template={template} />
+          </Grid>
+        ))}
+      </Grid>
+
+      {filteredTemplates.length === 0 && (
+        <Box className={classes.emptyState}>
+          <Typography color="textSecondary">
+            No templates found in this category.
+          </Typography>
         </Box>
-
-        <Grid container spacing={3}>
-          {filteredTemplates.map(template => (
-            <Grid item xs={12} sm={6} md={4} key={template.id}>
-              <TemplateCard template={template} />
-            </Grid>
-          ))}
-        </Grid>
-
-        {filteredTemplates.length === 0 && (
-          <Box className={classes.emptyState}>
-            <Typography color="textSecondary">
-              No templates found in this category.
-            </Typography>
-          </Box>
-        )}
-      </Content>
-    </Page>
+      )}
+    </Content>
   );
 };

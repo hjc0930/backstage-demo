@@ -1,4 +1,4 @@
-import { Content, Header, Page } from '@backstage/core-components';
+import { Content } from '@backstage/core-components';
 import {
   Box,
   Card,
@@ -265,20 +265,14 @@ const TemplateCard = ({ template }: { template: ProjectTemplate }) => {
 
 export const Reference = () => {
   return (
-    <Page themeId="tool">
-      <Header
-        title="Reference Templates"
-        subtitle="Ready-to-use project templates"
-      />
-      <Content>
-        <Grid container spacing={3}>
-          {projectTemplates.map(template => (
-            <Grid item xs={12} sm={6} md={4} key={template.id}>
-              <TemplateCard template={template} />
-            </Grid>
-          ))}
-        </Grid>
-      </Content>
-    </Page>
+    <Content>
+      <Grid container spacing={3}>
+        {projectTemplates.map(template => (
+          <Grid item xs={12} sm={6} md={4} key={template.id}>
+            <TemplateCard template={template} />
+          </Grid>
+        ))}
+      </Grid>
+    </Content>
   );
 };

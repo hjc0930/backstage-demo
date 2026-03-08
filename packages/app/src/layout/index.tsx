@@ -16,11 +16,6 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import LogoFull from './LogoFull';
 import LogoIcon from './LogoIcon';
 import {
-  Settings as SidebarSettings,
-  UserSettingsSignInAvatar,
-} from '@backstage/plugin-user-settings';
-import { SidebarSearchModal } from '@backstage/plugin-search';
-import {
   Sidebar,
   sidebarConfig,
   SidebarDivider,
@@ -31,9 +26,8 @@ import {
   useSidebarOpenState,
   Link,
 } from '@backstage/core-components';
-import SearchIcon from '@material-ui/icons/Search';
-import { NotificationsSidebarItem } from '@backstage/plugin-notifications';
 import { ThemeToggle } from './ThemeToggle';
+import { CommonHeader } from './CommonHeader';
 
 const useSidebarLogoStyles = makeStyles({
   root: {
@@ -75,6 +69,20 @@ const useSidebarToggleStyles = makeStyles(theme => ({
   },
 }));
 
+const useLayoutStyles = makeStyles(() => ({
+  mainContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    height: '100vh',
+    overflow: 'hidden',
+  },
+  contentArea: {
+    flex: 1,
+    overflow: 'auto',
+  },
+}));
+
 const SidebarToggle = () => {
   const classes = useSidebarToggleStyles();
   const { isOpen, setOpen } = useSidebarOpenState();
@@ -83,13 +91,13 @@ const SidebarToggle = () => {
     setOpen(!isOpen);
   };
 
-  // 计算按钮位置：侧边栏展开时在右边，收起时也在右边
+  // Calculate button position: right side of sidebar when expanded, right side when collapsed
   const leftPosition = isOpen
     ? sidebarConfig.drawerWidthOpen - 12
     : sidebarConfig.drawerWidthClosed - 12;
 
   return (
-    <Tooltip title={isOpen ? '收起侧边栏' : '展开侧边栏'} placement="right">
+    <Tooltip title={isOpen ? 'Collapse Sidebar' : 'Expand Sidebar'} placement="right">
       <Button
         className={classes.toggleButton}
         onClick={handleToggle}
@@ -105,18 +113,6 @@ const SidebarToggle = () => {
   );
 };
 
-const useThemeToggleStyles = makeStyles(theme => ({
-  root: {
-    position: 'fixed',
-    top: theme.spacing(1),
-    right: theme.spacing(1),
-    zIndex: 1100,
-    backgroundColor: theme.palette.background.paper,
-    borderRadius: '50%',
-    boxShadow: theme.shadows[2],
-  },
-}));
-
 const SidebarLogo = () => {
   const classes = useSidebarLogoStyles();
   const { isOpen } = useSidebarOpenState();
@@ -131,18 +127,13 @@ const SidebarLogo = () => {
 };
 
 const Layout = ({ children }: PropsWithChildren<{}>) => {
-  const themeToggleClasses = useThemeToggleStyles();
+  const classes = useLayoutStyles();
 
   return (
     <SidebarPage>
-      <div className={themeToggleClasses.root}>
-        <ThemeToggle />
-      </div>
+      <ThemeToggle />
       <Sidebar disableExpandOnHover>
         <SidebarLogo />
-        {/* <SidebarGroup label="Search" icon={<SearchIcon />} to="/search">
-          <SidebarSearchModal />
-        </SidebarGroup> */}
         {/* Dashboard */}
         <SidebarItem icon={DashboardIcon} to="/" text="Dashboard" />
 
@@ -190,18 +181,14 @@ const Layout = ({ children }: PropsWithChildren<{}>) => {
 
         <SidebarSpace />
         <SidebarDivider />
-        <NotificationsSidebarItem />
-        <SidebarDivider />
-        <SidebarGroup
-          label="Settings"
-          icon={<UserSettingsSignInAvatar />}
-          to="/settings"
-        >
-          <SidebarSettings />
-        </SidebarGroup>
         <SidebarToggle />
       </Sidebar>
-      {children}
+      <div className={classes.mainContent}>
+        <CommonHeader />
+        <div className={classes.contentArea}>
+          {children}
+        </div>
+      </div>
     </SidebarPage>
   );
 };

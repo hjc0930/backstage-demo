@@ -1,4 +1,4 @@
-import { IconButton, Tooltip, useTheme } from '@material-ui/core';
+import { IconButton, Tooltip, useTheme, makeStyles } from '@material-ui/core';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import { useApi } from '@backstage/core-plugin-api';
@@ -6,7 +6,23 @@ import { appThemeApiRef } from '@backstage/core-plugin-api';
 import { useState } from 'react';
 import { ThemeEnum } from '../types/common';
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    position: 'fixed',
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+    zIndex: 1300,
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: '50%',
+    boxShadow: theme.shadows[3],
+    '&:hover': {
+      backgroundColor: theme.palette.background.paper,
+    },
+  },
+}));
+
 export const ThemeToggle = () => {
+  const classes = useStyles();
   const theme = useTheme();
   const appThemeApi = useApi(appThemeApiRef);
 
@@ -28,8 +44,9 @@ export const ThemeToggle = () => {
       <IconButton
         onClick={toggleTheme}
         color="inherit"
+        className={classes.root}
         style={{
-          padding: 8,
+          padding: 12,
         }}
       >
         {isDark ? <Brightness7Icon /> : <Brightness4Icon />}

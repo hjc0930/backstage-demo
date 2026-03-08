@@ -1,5 +1,4 @@
 import {
-  PageWithHeader,
   Content,
   ContentHeader,
   SupportButton,
@@ -20,29 +19,27 @@ import {
 
 export const CustomCatalogIndexPage = () => {
   return (
-    <PageWithHeader title="Application Catalog" themeId="home">
-      <Content>
-        <ContentHeader title="">
-          <SupportButton>All your software catalog entities</SupportButton>
-        </ContentHeader>
-        <EntityListProvider pagination>
-          <CatalogFilterLayout>
-            <CatalogFilterLayout.Filters>
-              <EntityKindPicker />
-              <EntityTypePicker />
-              <UserListPicker />
-              <EntityOwnerPicker />
-              <EntityLifecyclePicker />
-              <EntityTagPicker />
-              <EntityProcessingStatusPicker />
-              <EntityNamespacePicker />
-            </CatalogFilterLayout.Filters>
-            <CatalogFilterLayout.Content>
-              <CatalogTable />
-            </CatalogFilterLayout.Content>
-          </CatalogFilterLayout>
-        </EntityListProvider>
-      </Content>
-    </PageWithHeader>
+    <Content>
+      <ContentHeader title="">
+        <SupportButton>All your software catalog entities</SupportButton>
+      </ContentHeader>
+      <EntityListProvider pagination>
+        <CatalogFilterLayout>
+          <CatalogFilterLayout.Filters>
+            <EntityKindPicker />
+            <EntityTypePicker />
+            <UserListPicker />
+            <EntityOwnerPicker />
+            <EntityLifecyclePicker />
+            <EntityTagPicker />
+            <EntityProcessingStatusPicker />
+            <EntityNamespacePicker />
+          </CatalogFilterLayout.Filters>
+          <CatalogFilterLayout.Content>
+            <CatalogTable />
+          </CatalogFilterLayout.Content>
+        </CatalogFilterLayout>
+      </EntityListProvider>
+    </Content>
   );
 };
