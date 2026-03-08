@@ -9,8 +9,11 @@ services:
     volumes:
       - ./data:/app/data  # 持久化数据库
       - ./examples:/app/examples  # 持久化 catalog 数据
+    env_file:
+      - .env
     environment:
       - APP_BASE_URL=${APP_BASE_URL:-http://localhost:7007}
+      - BACKEND_AUTH_SECRET=${BACKEND_AUTH_SECRET:-change-this}
       - GITHUB_TOKEN=${GITHUB_TOKEN:-}
     restart: unless-stopped
     healthcheck:
