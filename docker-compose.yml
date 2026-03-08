@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  backstage:
+    image: ${DOCKER_IMAGE:-backstage:latest}
+    container_name: backstage
+    ports:
+      - "7007:7007"
+    volumes:
+      - ./data:/app/data  # 持久化数据库
+      - ./examples:/app/examples  # 持久化 catalog 数据
+    environment:
+      - APP_BASE_URL=${APP_BASE_URL:-http://localhost:7007}
+      - GITHUB_TOKEN=${GITHUB_TOKEN:-}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:7007/healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
