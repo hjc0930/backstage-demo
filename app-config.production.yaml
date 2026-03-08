@@ -18,7 +18,8 @@ backend:
   # 使用 SQLite 文件模式进行数据持久化
   database:
     client: better-sqlite3
-    connection: './data/backstage.db'
+    connection:
+      directory: ./data
 
 auth:
   providers:
